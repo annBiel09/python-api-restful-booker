@@ -1,6 +1,6 @@
 import logging
 
-from utils import Booking, create_booking_and_register, create_booking_payload
+from utils import BookingClient, create_booking_and_register, create_booking_payload
 
 logger = logging.getLogger(__name__)
 
@@ -9,7 +9,7 @@ def test_booking_lifecycle():
 
     payload = create_booking_payload()
 
-    create_response = Booking.create_booking(payload)
+    create_response = BookingClient.create_booking(payload)
 
     assert create_response.status_code == 200
 
@@ -17,7 +17,7 @@ def test_booking_lifecycle():
 
     logger.info(f"Created booking_id: {booking_id}")
 
-    get_response = Booking.get_booking(booking_id)
+    get_response = BookingClient.get_booking(booking_id)
 
     assert get_response.status_code == 200
 

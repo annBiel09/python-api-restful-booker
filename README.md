@@ -23,7 +23,7 @@ python -m pip install -r requirements.txt
 Some end-to-end tests require the local Fake CRM service.
 
 ```bash
-cd fake-crm
+cd fake_crm
 uvicorn main:app --reload
 ```
 
