@@ -27,7 +27,21 @@ cd fake_crm
 uvicorn main:app --reload
 ```
 
+## Running Kafka
+
+```bash
+docker run -p 9092:9092 apache/kafka:4.3.1
+```
+
+## Running MQTT
+
+```bash
+docker run -p 1883:1883 eclipse-mosquitto
+```
+
 ## Running tests
+
+Make sure the required local services are running before executing integration tests.
 
 Run all tests:
 
@@ -52,3 +66,6 @@ The framework currently includes:
 - Token-based authentication
 - Random test data generation with Faker
 - Fake CRM service for external API simulation
+- HTTP error handling tests
+- Kafka message publishing and consuming
+- MQTT message publishing and consuming
