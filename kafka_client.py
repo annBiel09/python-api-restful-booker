@@ -16,7 +16,7 @@ class KafkaClient:
             {
                 "bootstrap.servers": KAFKA_BOOTSTRAP_SERVERS,
                 "group.id": group_id,
-                "auto.offset.reset": "earliest",
+                "auto.offset.reset": "latest",
                 "enable.auto.commit": False,
             }
         )
