@@ -1,19 +1,31 @@
 import json
+import time
 import uuid
 
+from faker import Faker
+
 from kafka_client import KafkaClient
+
+fake = Faker()
 
 TOPIC = "booking-created"
 
 
 def test_publish_and_consume_message():
     message = {
-        "bookingid": 123,
-        "firstname": "Anna",
+        "bookingid": fake.random_int(min=1, max=10000),
+        "firstname": fake.first_name(),
     }
 
     consumer = KafkaClient.create_consumer(group_id=f"test-{uuid.uuid4().hex}")
     consumer.subscribe([TOPIC])
+
+    timeout = time.time() + 10
+
+    while not consumer.assignment() and time.time() < timeout:
+        consumer.poll(timeout=1.0)
+
+    assert consumer.assignment()
 
     producer = KafkaClient.create_producer()
 
@@ -27,6 +39,7 @@ def test_publish_and_consume_message():
 
     for _ in range(10):
         received = consumer.poll(timeout=1.0)
+
         if received is not None:
             break
 

@@ -1,2 +1,4 @@
 def test_login(token):
-    pass
+    assert token is not None
+    assert isinstance(token, str)
+    assert token != ""
