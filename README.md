@@ -10,12 +10,10 @@ Clone the repository and install the project dependencies:
 
 ```bash
 git clone https://github.com/annBiel09/python-api-restful-booker.git
+
 cd Python_API_Framework
 
-python3 -m venv .venv
-source .venv/bin/activate
-
-python -m pip install -r requirements.txt
+uv sync
 ```
 
 ## Running the Fake CRM
@@ -23,8 +21,7 @@ python -m pip install -r requirements.txt
 Some end-to-end tests require the local Fake CRM service.
 
 ```bash
-cd fake_crm
-uvicorn main:app --reload
+uv run uvicorn fake_crm.main:app --reload
 ```
 
 ## Running Kafka
@@ -46,15 +43,15 @@ Make sure the required local services are running before executing integration t
 Run all tests:
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ## Code Quality
 
 ```bash
-ruff check
-ruff format
-mypy .
+uv run ruff check .
+uv run ruff format .
+uv run mypy .
 ```
 
 ## Features
@@ -69,3 +66,4 @@ The framework currently includes:
 - HTTP error handling tests
 - Kafka message publishing and consuming
 - MQTT message publishing and consuming
+- Event emulator for MQTT message simulation
