@@ -9,7 +9,7 @@ MQTT_PORT = 1883
 class MqttClient:
     @staticmethod
     def create_client() -> mqtt.Client:
-        return mqtt.Client()
+        return mqtt.Client(callback_api_version=mqtt.CallbackAPIVersion.VERSION2)
 
     @staticmethod
     def serialize_message(message: dict) -> str:

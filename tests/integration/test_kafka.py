@@ -8,17 +8,15 @@ from kafka_client import KafkaClient
 
 fake = Faker()
 
-TOPIC = "booking-created"
 
-
-def test_publish_and_consume_message():
+def test_publish_and_consume_message(kafka_topic):
     message = {
         "bookingid": fake.random_int(min=1, max=10000),
         "firstname": fake.first_name(),
     }
 
     consumer = KafkaClient.create_consumer(group_id=f"test-{uuid.uuid4().hex}")
-    consumer.subscribe([TOPIC])
+    consumer.subscribe([kafka_topic])
 
     timeout = time.time() + 10
 
@@ -30,7 +28,7 @@ def test_publish_and_consume_message():
     producer = KafkaClient.create_producer()
 
     producer.produce(
-        TOPIC,
+        kafka_topic,
         value=KafkaClient.serialize_message(message),
     )
     producer.flush()
